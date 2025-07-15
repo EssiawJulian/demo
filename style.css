@@ -86,7 +86,9 @@ a:-webkit-any-link {
 
 /* === BACKGROUND IMAGE STYLE === */
 #background-img {
-    background-image: url("[PUT A URL HERE !!!]");
+    background-image: url("https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnd1cWkwbWVrZGZvcTk3ODR3djg3M2NmZWJxbGJkN2g3ZmhreXphZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NKEt9elQ5cR68/giphy.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 
