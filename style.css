@@ -1,7 +1,11 @@
 /* === PAGE BACKGROUND AND TEXT STYLE === */
-body {
-    font-family: 'Trebuchet MS', Arial, sans-serif; /* 💡 Change the font family for the entire page */
-    background-color: #bfbfbf; /* 🎨 You can change the entire page background color here */
+* {
+    box-sizing: border-box; /* This makes layout calculations more intuitive */
+}
+
+html, body {
+    font-family: 'Share Tech Mono', monospace; /* A cool, techy font for the body */
+    color: #f0f0f0;
 }
 
 /* === PARAGRAPH STYLE === */
@@ -21,15 +25,6 @@ a:-webkit-any-link {
     color: #404040; /* IMPORTANT: make this the same as above! ^^^ */
 }
 
-/* === MAIN CONTAINER BOX (THE CARD) === */
-#container {
-    max-width: 400px; /* 💡 Change this to make the card bigger/smaller */
-    background-color: #f2f2f2; /* 🎨 Card background color */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 🎨 Adds a soft shadow */
-    border-radius: 10px; /* 💡 Rounded corners */
-    margin: 15px auto;
-    padding: 25px;
-}
 
 /* === "HI, MY NAME IS" HEADING === */
 #name-intro {
@@ -80,8 +75,11 @@ a:-webkit-any-link {
 }
 
 #fun-fact {
-    font-size: 15px; /* 💡 Change the size of the fun fact text */
-    margin: 10px;
+    font-size: 1em;
+    color: #a1f6ff;
+    border-top: 1px solid rgba(0, 217, 255, 0.3);
+    padding-top: 20px;
+    margin-top: 20px;
 }
 
 /* === BACKGROUND IMAGE STYLE === */
@@ -91,6 +89,195 @@ a:-webkit-any-link {
     background-size: cover;
 }
 
+#bio, #fun-fact {
+    font-size: 1.1em;
+    line-height: 1.6;
+    max-width: 90%;
+    margin: 10px 0;
+    color: #d0d0d0;
+    }
+
+
+
+/* === ANIMATED BACKGROUND & SCANLINES === */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+    
+/* This pseudo-element creates a scanline effect over the whole page, like an old CRT monitor */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Places it above the background but below the content */
+    pointer-events: none; /* Makes it so you can click through it */
+    animation: scanlines 10s linear infinite;
+}
+
+/* The animation that makes the scanlines gently move */
+@keyframes scanlines {
+    from { background-position: 0 0; }
+    to { background-position: 0 100%; }
+}
+
+
+/* Keyframes for the container's entrance animation */
+@keyframes fadeInScaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* === PROFILE PICTURE === */
+#profile-pic {
+    width: 80%;
+    max-width: 250px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 50%; /* A circular profile picture looks more futuristic */
+    margin-bottom: 20px;
+    border: 4px solid #ff00c1; /* A bright magenta border */
+    /* Neon magenta glow that pulses! */
+    box-shadow: 0 0 10px #ff00c1, 0 0 20px #ff00c1, 0 0 30px #ff00c1;
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+/* Keyframes for the pulsating glow effect */
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px #ff00c1, 0 0 20px #ff00c1, 0 0 30px #ff00c1;
+    }
+    50% {
+        box-shadow: 0 0 20px #ff00c1, 0 0 35px #ff00c1, 0 0 50px #ff00c1;
+    }
+}
+
+/* === TEXT STYLES & ANIMATIONS === */
+h1, h2, h3, p, a {
+    padding: 0;
+    margin: 0;
+    /* This adds a subtle fade-in effect to all text elements */
+    animation: textFadeIn 1.5s ease-out forwards;
+    opacity: 0; /* Start invisible */
+}
+
+/* We use animation-delay to make text appear sequentially */
+#name-intro { animation-delay: 0.5s; }
+#name { animation-delay: 0.7s; }
+#hometown { animation-delay: 0.9s; }
+#email { animation-delay: 1.1s; }
+#bio { animation-delay: 1.3s; }
+#fun-fact { animation-delay: 1.5s; }
+
+@keyframes textFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#name-intro {
+    color: #a1f6ff;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+/* === THE GLITCHY NAME HEADING === */
+#name {
+    font-family: 'Orbitron', sans-serif; /* A bold, futuristic font for the name */
+    font-size: 3.5rem; /* Responsive font size */
+    color: #f5f5f5;
+    margin-bottom: 15px;
+    position: relative;
+    /* This is where the glitch animation is applied */
+    animation: textFadeIn 1.5s ease-out forwards, glitch 3s infinite;
+}
+
+/* We use pseudo-elements to create the colored layers for the glitch effect */
+#name::before, #name::after {
+    content: 'Julian Essiaw'; /* This MUST match the text in the h1 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a1734; /* Match the card background */
+    overflow: hidden;
+}
+
+#name::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1; /* Magenta shadow */
+    /* The first glitch animation */
+    animation: glitch-before 3s infinite linear alternate-reverse;
+}
+
+#name::after {
+    left: -2px;
+    text-shadow: -2px 0 #00d9ff, 2px 2px #ff00c1; /* Cyan and Magenta shadows */
+    /* The second glitch animation */
+    animation: glitch-after 3s infinite linear alternate-reverse;
+}
+
+/* Keyframes for the first layer of the glitch */
+@keyframes glitch-before {
+    0%, 2%, 6%, 8%, 10%, 12%, 80%, 82%, 100% { clip-path: inset(50% 0 51% 0); }
+    4% { clip-path: inset(10% 0 81% 0); }
+    14% { clip-path: inset(90% 0 1% 0); }
+    16% { clip-path: inset(40% 0 41% 0); }
+    84% { clip-path: inset(1% 0 90% 0); }
+    86% { clip-path: inset(70% 0 11% 0); }
+}
+
+/* Keyframes for the second layer of the glitch */
+@keyframes glitch-after {
+    0%, 2%, 6%, 8%, 10%, 12%, 70%, 72%, 100% { clip-path: inset(50% 0 51% 0); }
+    5% { clip-path: inset(40% 0 51% 0); }
+    13% { clip-path: inset(20% 0 71% 0); }
+    15% { clip-path: inset(10% 0 81% 0); }
+    74% { clip-path: inset(80% 0 11% 0); }
+    76% { clip-path: inset(60% 0 31% 0); }
+}
+
+
+/* === OTHER TEXT STYLES === */
+#hometown {
+    color: #9d9d9d;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+#email {
+    color: #a1f6ff;
+    margin-bottom: 25px;
+    font-size: 1.1em;
+}
+
+#email-link {
+    color: #00ff9f; /* A bright lime green for the link */
+    text-decoration: none;
+    border-bottom: 1px dashed #00ff9f;
+    transition: all 0.3s ease;
+}
+
+#email-link:hover {
+    color: #f5f5f5;
+    background-color: #00ff9f;
+    border-bottom-color: #f5f5f5;
+    text-shadow: 0 0 5px #00ff9f;
+}
 
 
 
@@ -180,9 +367,25 @@ h1, h2, h3 {
 }
 
 #container {
+    position: relative;
+    max-width: 750px; /* 💡 Change this to make the card bigger/smaller */
+    background-color: #f2f2f2; /* 🎨 Card background color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 🎨 Adds a soft shadow */
+    border-radius: 10px; /* 💡 Rounded corners */
+    margin: 30px auto;
+    padding: 30px;
+    background: rgba(10, 23, 52, 0.85); /* Semi-transparent dark blue */
+    border: 2px solid #00d9ff;
+    border-radius: 15px;
+    /* A neon blue glow effect using box-shadow */
+    box-shadow: 0 0 15px #00d9ff, 0 0 25px #00d9ff, inset 0 0 10px #00d9ff;
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    /* This animation makes the card fade in and scale up on load */
+    animation: fadeInScaleUp 1s ease-out forwards;
+    z-index: 2;
 }
 
 #profile-pic {
